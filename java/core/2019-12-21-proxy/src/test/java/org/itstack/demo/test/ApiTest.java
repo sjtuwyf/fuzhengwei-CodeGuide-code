@@ -1,7 +1,9 @@
 package org.itstack.demo.test;
 
+import org.itstack.demo.cglib.CglibProxy;
 import org.itstack.demo.jdk.reflect.JDKProxy;
 import org.itstack.demo.service.IUserService;
+import org.itstack.demo.service.UserService;
 import org.junit.Test;
 import sun.misc.ProxyGenerator;
 
@@ -43,6 +45,14 @@ public class ApiTest {
                 }
             }
         }
+    }
+
+    @Test
+    public void test_proxy_cglib() {
+        CglibProxy cglibProxy = new CglibProxy();
+        UserService userService = (UserService) cglibProxy.newInstance(new UserService());
+        String userName = userService.queryUserNameById("10001");
+        System.out.println(userName);
     }
 
 
